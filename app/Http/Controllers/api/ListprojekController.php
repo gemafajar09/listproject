@@ -9,30 +9,23 @@ use DB;
 class ListprojekController extends Controller
 {
 
-    public function show($id)
+    public function proses($id)
     {
         $res = array();
-        if($id == 100)
-        {
-            $data = DB::table('tb_project')->get();
-        }else{
-            $data = DB::table('tb_project')->where('status',$id)->get();
-        }
+        $data = DB::table('tb_progres')->join('tb_project','tb_progres.id_project','tb_project.id_project')->where('tb_progres.id_user',$id)->where('tb_project.status',1)->get();
+    
         foreach($data as $i => $a){
-            if($a->status == 0){
-                $status = 'Waiting';
-            }elseif($a->status == 1){
-                $status = 'Progres';
-            }elseif($a->status == 2){
-                $status = 'Finish';
-            }
-        
+            $jumlahfitur = DB::table('tb_fitur')->where('id_project',$a->id_project)->select(DB::raw('COUNT(*) as jumlah'))->first();
+            $jumlahfiturselesai = DB::table('tb_fitur')->where('id_project',$a->id_project)->where('status',1)->select(DB::raw('COUNT(*) as selesai'))->first();
+            // cari persentase
+            $pecah = 100 / $jumlahfitur->jumlah;
+            $rank = $pecah * $jumlahfiturselesai->selesai;
+            // ===============
             $res[] = array(
                 'id_project' => $a->id_project,
                 'judul' => $a->judul,
                 'deskripsi' => $a->deskripsi,
-                'status' => $a->status,
-                'progres' => $status,
+                'progres' => round($rank),
                 'tgl_masuk' => $a->tanggal_masuk,
                 'tgl_dateline' => $a->tanggal_dateline,
                 'nama_client' => $a->nama_client,
@@ -44,42 +37,42 @@ class ListprojekController extends Controller
         echo json_encode($res);
     }
 
-    public function detail($id)
+    public function fiturprogres($id)
     {
-        $res = array();
         $data = DB::table('tb_fitur')->where('id_project',$id)->get();
-        foreach($data as $f)
-        {
-            $res[] = array(
-                'id_fitur' => $f['id_fitur'],
-                'fitur' => $f['fitur'],
-                'status' => $f['status']
-            );
-        }
-
-        echo json_encode($res);
+        echo json_encode($data);
     }
 
-    public function detailproject($id)
+    public function updetstatusfitur(Request $r)
+    {
+        $id = $r->id;
+        $status = $r->status;
+        if($status == 1)
+        {
+            $bool = 0;
+        }else{
+            $bool = 1;
+        }
+        $sts = DB::table('tb_fitur')->where('id_fitur',$id)->update(['status' =>$bool]);
+        if($sts == true)
+        {
+            echo json_encode(['pesan' => 'Success']);
+        }else{
+            echo json_encode(['pesan' => 'Error']);
+        }
+    }
+
+    // waiting
+    public function waiting($id)
     {
         $res = array();
-        $data = DB::table('tb_project')->where('id_project',$id)->get();
-
+        $data = DB::table('tb_project')->where('status',$id)->get();
+    
         foreach($data as $i => $a){
-            if($a->status == 0){
-                $status = 'Waiting';
-            }elseif($a->status == 1){
-                $status = 'Progres';
-            }elseif($a->status == 2){
-                $status = 'Finish';
-            }
-        
             $res[] = array(
                 'id_project' => $a->id_project,
                 'judul' => $a->judul,
                 'deskripsi' => $a->deskripsi,
-                'status' => $a->status,
-                'progres' => $status,
                 'tgl_masuk' => $a->tanggal_masuk,
                 'tgl_dateline' => $a->tanggal_dateline,
                 'nama_client' => $a->nama_client,
@@ -91,28 +84,24 @@ class ListprojekController extends Controller
         echo json_encode($res);
     }
 
-    public function userprojek($id)
+    // projek finis
+    public function finish($id)
     {
         $res = array();
-        $data = DB::table('tb_progres')
-                ->join('tb_project','tb_progres.id_project','tb_project.id_project')
-                ->where('tb_progres.id_user',$id)
-                ->get();
+        $data = DB::table('tb_progres')->join('tb_project','tb_progres.id_project','tb_project.id_project')->where('tb_progres.id_user',$id)->where('tb_project.status',2)->get();
+    
         foreach($data as $i => $a){
-            if($a->status == 0){
-                $status = 'Waiting';
-            }elseif($a->status == 1){
-                $status = 'Progres';
-            }elseif($a->status == 2){
-                $status = 'Finish';
-            }
-        
+            $jumlahfitur = DB::table('tb_fitur')->where('id_project',$a->id_project)->select(DB::raw('COUNT(*) as jumlah'))->first();
+            $jumlahfiturselesai = DB::table('tb_fitur')->where('id_project',$a->id_project)->where('status',1)->select(DB::raw('COUNT(*) as selesai'))->first();
+            // cari persentase
+            $pecah = 100 / $jumlahfitur->jumlah;
+            $rank = $pecah * $jumlahfiturselesai->selesai;
+            // ===============
             $res[] = array(
                 'id_project' => $a->id_project,
                 'judul' => $a->judul,
                 'deskripsi' => $a->deskripsi,
-                'status' => $a->status,
-                'progres' => $status,
+                'progres' => round($rank),
                 'tgl_masuk' => $a->tanggal_masuk,
                 'tgl_dateline' => $a->tanggal_dateline,
                 'nama_client' => $a->nama_client,
