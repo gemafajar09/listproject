@@ -42,7 +42,8 @@ Route::group([
     'middleware' => 'ceklogin',
 ], function(){
     Route::get('projek-berjalan','ProjekberjalanController@index')->name('projek-berjalan');
-    Route::get('projek-berjalan-timeline','ProjekberjalanController@timeline')->name('projek-berjalan-timeline');
+    Route::get('projek-berjalan-timeline/{id}','ProjekberjalanController@timeline')->name('projek-berjalan-timeline');
+    Route::post('projek-berjalan-timeline','ProjekberjalanController@store')->name('projek-berjalan-timeline.store');
 });
 
 // projek masuk

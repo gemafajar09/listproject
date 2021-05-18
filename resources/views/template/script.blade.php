@@ -19,8 +19,12 @@
 <script src="{{asset('/asset/plugins/fullcalendar-timegrid/main.min.js')}}"></script>
 <script src="{{asset('/asset/plugins/fullcalendar-interaction/main.min.js')}}"></script>
 <script src="{{asset('/asset/plugins/fullcalendar-bootstrap/main.min.js')}}"></script>
+
 <!-- ChartJS -->
 <script src="{{asset('/asset/plugins/chart.js/Chart.min.js')}}"></script>
+
+<!-- axios -->
+<script src="{{asset('/asset/dist/js/axios.min.js')}}"></script>
 
 <script>
 	$(function () {

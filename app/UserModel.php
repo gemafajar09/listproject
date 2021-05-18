@@ -11,7 +11,6 @@ use Illuminate\Auth\Authenticatable;
 class UserModel extends Model implements AuthenticatableContract,JWTSubject
 {
     use Notifiable,Authenticatable;
-    public $timestamps = false;
     protected $table = 'tb_user';
     protected $primaryKey = 'id_user ';
     protected $fillable = [
