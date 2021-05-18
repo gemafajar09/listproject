@@ -58,3 +58,13 @@ Route::group([
     Route::post('detail-fitur-del','ProjekmasukController@deletefitur')->name('detail-fitur-del');
     Route::get('detail-fitur/{id}','ProjekmasukController@detailfitur')->name('detail-fitur');
 });
+
+// grafik
+Route::group([
+    'name' => 'grafik',
+    'prefix' => 'grafik',
+    'middleware' => 'ceklogin',
+], function(){
+    Route::get('grafik','GrafikController@index')->name('grafik');
+    Route::get('month','GrafikController@month')->name('month');
+});

@@ -42,7 +42,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('grafik')}}" class="nav-link">
               <i class="nav-icon far fa-circle"></i>
               <p>
                 Grafik
