@@ -39,8 +39,6 @@
                         </label>
                     </div>
                 </div>
-                <hr>
-                <button class="btn btn-danger btn-block"><i class="fa fa-trash"></i> Hapus</button>
             </div>
         </div>
         <!-- /.card -->
@@ -164,10 +162,54 @@
             // tempat olah data
             events:<?= json_encode($event) ?>,
             eventDrop: function (event, delta, revertFunc) {
-                //inner column movement drop so get start and call the ajax function......
-                console.log(event);
-                // console.log(event.draggedEl.id);
-                //alert(event.title + " was dropped on " + event.start.format());
+                // ambil timeline_id
+                var timeline_id = event.event._def.publicId;
+                // ambil tgl kalender
+                function formatDate(date) {
+                    var d = new Date(date),
+                        month = '' + (d.getMonth() + 1),
+                        day = '' + d.getDate(),
+                        year = d.getFullYear();
+
+                    if (month.length < 2) 
+                        month = '0' + month;
+                    if (day.length < 2) 
+                        day = '0' + day;
+
+                    return [year, month, day].join('-');
+                }
+                var tgl_baru = formatDate(event.event._instance.range.start);
+                // console.log();
+                
+                if (!confirm("Yakin ganti hari ?")) {
+                    event.revert();
+                }else{
+                    axios.post("{{ route('projek-berjalan-timeline.update') }}", {
+                        "timeline_id" : timeline_id,
+                        "tanggal" : tgl_baru,
+                    }).then(function(res){
+                        var status = res.data.data;
+                        var event = res.data.event;
+                        location.reload(); 
+                    }).catch(function(err){
+                        console.log(err);
+                    })
+                }
+            },
+            eventClick: function (info) { 
+                var confimit = confirm("Yakin ingin hapus?");
+                var timeline_id = info.event._def.publicId;
+                if (confimit) {
+                    axios.post("{{ route('projek-berjalan-timeline.delete') }}", {
+                        "timeline_id" : timeline_id,
+                    }).then(function(res){
+                        var status = res.data.data;
+                        var event = res.data.event;
+                        location.reload(); 
+                    }).catch(function(err){
+                        console.log(err);
+                    })
+                }
             },
             editable: true,
             droppable: true, // this allows things to be dropped onto the calendar !!!
