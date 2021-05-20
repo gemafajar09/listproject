@@ -74,8 +74,10 @@ class ProjekberjalanController extends Controller
 
             // buat back
             $event[] = [
+                "id" => $a->timeline_id,
                 "title" => $t,
                 "start" => $a->tanggal,
+                "end" => $a->tanggal,
                 "color" => $c,
                 "backgroundColor" => $bg,
                 "borderColor" => $b,
@@ -122,8 +124,10 @@ class ProjekberjalanController extends Controller
 
             // buat back
             $event[] = [
+                "id" => $a->timeline_id,
                 "title" => $t,
                 "start" => $a->tanggal,
+                "end" => $a->tanggal,
                 "color" => $c,
                 "backgroundColor" => $bg,
                 "borderColor" => $b,
@@ -158,5 +162,48 @@ class ProjekberjalanController extends Controller
             ]);
         }
 
+    }
+
+    public function update(Request $req)
+    {
+        // cari apakah data user terlebih dahulu
+        $data_user = DB::table("tb_timeline")
+                    ->where("timeline_id", '=', $req->timeline_id)
+                    ->first();
+        // dd($data_user);
+        // cari apakah status sudah ada ditanggal yg sama
+        $cek = DB::table("tb_timeline")
+                ->where("id_project", '=', $data_user->id_project)
+                ->where("id_user", '=', $data_user->id_user)
+                ->where("tanggal", '=', $req->tanggal)
+                ->count();
+
+        if($cek != 0){
+            return json_encode([
+                'status' => 'error',
+                'data' => 'reload', 
+            ]);
+        }else{
+            DB::table('tb_timeline')->where('timeline_id', '=', $req->timeline_id)
+                                    ->update([
+                                        'tanggal' => $req->tanggal,
+                                    ]);
+            
+            return json_encode([
+                'status' => 'success',
+                'data' => 'sukses', 
+            ]);
+        }
+    }
+
+    public function delete(Request $req)
+    {
+        DB::table('tb_timeline')->where('timeline_id', '=', $req->timeline_id)->delete();
+        
+        return json_encode([
+            'status' => 'success',
+            'data' => 'sukses', 
+        ]);
+    
     }
 }

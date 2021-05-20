@@ -44,6 +44,8 @@ Route::group([
     Route::get('projek-berjalan','ProjekberjalanController@index')->name('projek-berjalan');
     Route::get('projek-berjalan-timeline/{id}','ProjekberjalanController@timeline')->name('projek-berjalan-timeline');
     Route::post('projek-berjalan-timeline','ProjekberjalanController@store')->name('projek-berjalan-timeline.store');
+    Route::post('projek-berjalan-timeline/update','ProjekberjalanController@update')->name('projek-berjalan-timeline.update');
+    Route::post('projek-berjalan-timeline/delete','ProjekberjalanController@delete')->name('projek-berjalan-timeline.delete');
 });
 
 // projek masuk
