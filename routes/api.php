@@ -8,6 +8,7 @@ Route::post('auth-login','ApiloginController@login');
 Route::get('projek-proses/{id}','api\ListprojekController@proses');
 Route::get('projek-fitur/{id}','api\ListprojekController@fiturprogres');
 Route::post('projek-fitur-update','api\ListprojekController@updetstatusfitur');
+Route::post('projek-timeline','api\ListprojekController@timelineproses');
 // listproject waiting
 Route::get('projek-waiting/{id}','api\ListprojekController@waiting');
 // listproject Finish
