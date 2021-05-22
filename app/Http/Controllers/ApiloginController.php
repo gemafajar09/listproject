@@ -55,7 +55,7 @@ class ApiloginController extends Controller
                 'jabatan' => $user->jabatan,
                 'alamat' => $user->alamat,
                 'telpon' => $user->telpon,
-                'foto' => 'http://192.168.1.10/listproject/public/image/'.$user->foto
+                'foto' => 'http://192.168.1.5/listproject/public/image/'.$user->foto
             ];
         }
 
