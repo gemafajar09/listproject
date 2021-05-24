@@ -50,10 +50,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('gaji')}}" class="nav-link">
               <i class="nav-icon far fa-circle"></i>
               <p>
-                Perhitungan Bonus
+                Gaji
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('bonus')}}" class="nav-link">
+              <i class="nav-icon far fa-circle"></i>
+              <p>
+                Bonus
               </p>
             </a>
           </li>

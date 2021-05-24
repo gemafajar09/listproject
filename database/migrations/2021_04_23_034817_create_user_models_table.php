@@ -17,7 +17,9 @@ class CreateUserModelsTable extends Migration
             $table->id('id_user');
             $table->string('nama');
             $table->integer('id_jabatan');
+            $table->string('notelpon');
             $table->string('username');
+            $table->text('alamat');
             $table->string('password');
             $table->string('password_ulangi');
             $table->text('foto');
