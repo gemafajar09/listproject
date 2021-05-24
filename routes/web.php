@@ -67,5 +67,26 @@ Route::group([
     'middleware' => 'ceklogin',
 ], function(){
     Route::get('grafik','GrafikController@index')->name('grafik');
-    Route::get('month','GrafikController@month')->name('month');
+    Route::get('data-jabatan-del/{id}','GrafikController@delete')->name('data-jabatan-del');
+});
+
+// gaji
+Route::group([
+    'name' => 'gaji',
+    'prefix' => 'gaji',
+    'middleware' => 'ceklogin',
+], function(){
+    Route::get('gaji','GajiController@index')->name('gaji');
+    Route::post('data-gaji-add','GajiController@add')->name('data-gaji-add');
+    Route::get('data-gaji-del/{id}','GajiController@delete')->name('data-gaji-del');
+});
+
+// bonus
+Route::group([
+    'name' => 'bonus',
+    'prefix' => 'bonus',
+    'middleware' => 'ceklogin',
+], function(){
+    Route::get('bonus','BonusController@index')->name('bonus');
+    Route::get('data-bonus-del/{id}','BonusController@delete')->name('data-bonus-del');
 });

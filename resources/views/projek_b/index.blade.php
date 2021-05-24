@@ -52,7 +52,7 @@
                             @if($a['status'] == 1)
 
                             <span class="badge badge-info">Progres</span>
-                            @else if($a['status'] == 2)
+                            @elseif($a['status'] == 3)
                             <span class="badge badge-success">Selesai</span>
                             @endif
                         </td>

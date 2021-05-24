@@ -22,6 +22,10 @@
 
 <!-- ChartJS -->
 <script src="{{asset('/asset/plugins/chart.js/Chart.min.js')}}"></script>
+<!-- Select2 -->
+<script src="{{asset('/asset/plugins/select2/js/select2.full.min.js')}}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{asset('/asset/dist/js/demo.js')}}"></script>
 
 <!-- axios -->
 <script src="{{asset('/asset/dist/js/axios.min.js')}}"></script>
@@ -41,6 +45,12 @@
 		"autoWidth": false,
 		"responsive": true,
 		});
+		//Initialize Select2 Elements
+		$('.select2').select2()
+		//Initialize Select2 Elements
+		$('.select2bs4').select2({
+		theme: 'bootstrap4'
+		})
 	});
     function logout(){
 		var hapusin=confirm("Apakah Anda yakin ingin keluar?");

@@ -3,9 +3,6 @@
     <div class="col-md-12">
         <!-- AREA CHART -->
         <div class="card card-primary card-outline">
-            <div class="card-header">
-                <h3 class="card-title">Grafik</h3>
-            </div>
             <div class="card-body">
                 <div class="chart">
                     <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
