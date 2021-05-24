@@ -62,6 +62,28 @@ class ListprojekController extends Controller
         }
     }
 
+    public function timelineproses(Request $r)
+    {
+        $id_project = $r->id_projek;
+        $id_user = $r->id_user;
+        $status = $r->status;
+        $tanggal = date("Y-m-d");
+        $cek = DB::table('tb_timeline')->where('tanggal',$tanggal)->where('id_user',$id_user)->where('id_project',$id_project)->first();
+        if($cek != null)
+        {
+            $save = DB::table('tb_timeline')->insert([
+                'id_project' => $id_project,
+                'id_user' => $id_user,
+                'status' => $status,
+                'tanggal' => $tanggal
+            ]);
+            echo json_encode(['pesan' => 'Success']);
+        }else{
+            echo json_encode(['pesan' => 'Error']);
+
+        }
+    }
+
     // waiting
     public function waiting($id)
     {
