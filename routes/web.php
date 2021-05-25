@@ -80,7 +80,8 @@ Route::group([
 ], function(){
     Route::get('gaji','GajiController@index')->name('gaji');
     Route::post('data-gaji-add','GajiController@add')->name('data-gaji-add');
-    Route::get('data-gaji-del/{id}','GajiController@delete')->name('data-gaji-del');
+    Route::post('data-gaji-del','GajiController@delete')->name('data-gaji-del');
+    Route::get('data-gaji-detail/{id}','GajiController@detail')->name('data-gaji-detail');
 });
 
 // bonus

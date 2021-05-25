@@ -10,11 +10,13 @@ class GajiController extends Controller
 {
     public function index()
     {
-        $data['gaji'] = DB::table('tb_gaji')
-                ->join('tb_user', 'tb_gaji.id_user', '=', 'tb_user.id_user')
-                ->select('tb_gaji.*', 'tb_user.nama')
-                ->get();
-        $data['karyawan'] = UserModel::get();
+        // $data['gaji'] = DB::table('tb_gaji')
+        //         ->join('tb_user', 'tb_gaji.id_user', '=', 'tb_user.id_user')
+        //         ->select('tb_gaji.*', 'tb_user.nama')
+        //         ->get();
+        $data['karyawan'] = DB::table('tb_user')
+                            ->join('tb_jabatan', 'tb_user.id_jabatan', '=', 'tb_jabatan.id_jabatan')
+                            ->get();
 
         return view('gaji.index', $data);
     }
@@ -56,15 +58,22 @@ class GajiController extends Controller
         }
     }
 
-    public function delete($id)
+    public function delete(Request $r)
     {
-        $del = DB::table('tb_gaji')->where('id_gaji',$id)->delete();
-        if($del == true)
-        {
-            return back()->with('pesan','Success');
-        }else{
-            return back()->with('pesan','Error');
-        }
+        $del = DB::table('tb_gaji')->where('id_gaji',$r->id)->delete();
+        
+        return json_encode([
+            'status' => 'success'
+        ]);
+    }
+
+    public function detail($id)
+    {
+        $data['detail'] = DB::table('tb_gaji')
+                        ->where('id_user',$id)
+                        ->orderBy('tanggal_gajian', 'DESC')
+                        ->get();
+        return view('gaji.table',$data);
     }
 
 }
