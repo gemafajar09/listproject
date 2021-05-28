@@ -80,7 +80,8 @@ Route::group([
 ], function(){
     Route::get('gaji','GajiController@index')->name('gaji');
     Route::post('data-gaji-add','GajiController@add')->name('data-gaji-add');
-    Route::get('data-gaji-del/{id}','GajiController@delete')->name('data-gaji-del');
+    Route::post('data-gaji-del','GajiController@delete')->name('data-gaji-del');
+    Route::get('data-gaji-detail/{id}','GajiController@detail')->name('data-gaji-detail');
 });
 
 // bonus
@@ -90,5 +91,10 @@ Route::group([
     'middleware' => 'ceklogin',
 ], function(){
     Route::get('bonus','BonusController@index')->name('bonus');
-    Route::get('data-bonus-del/{id}','BonusController@delete')->name('data-bonus-del');
+    Route::get('bonus-tambah','BonusController@tambah')->name('bonus-tambah');
+    Route::post('bonus-cari-harga','BonusController@cari_harga')->name('bonus-cari-harga');
+    Route::get('bonus-programmer/{id}','BonusController@cari_programmer')->name('bonus-programmer');
+    Route::get('bonus-detail/{bpnus_id}','BonusController@bonus_detail')->name('bonus-detail');
+    Route::post('bonus-simpan','BonusController@simpan')->name('bonus-simpan');
+    Route::post('data-bonus-del','BonusController@delete')->name('data-bonus-del');
 });
