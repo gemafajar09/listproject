@@ -15,8 +15,8 @@
             <td>{{$i+1}}</td>
             <td>{{ \Carbon\Carbon::parse($a->tanggal_gajian)->isoFormat('MMMM Y') }}</td>
             <td>{{ $a->hari_kerja }}</td>
-            <td>Rp. {{ number_format($a->gaji) }}</td>
-            <td>Rp. {{ number_format($a->gaji / $a->hari_kerja) }}</td>
+            <td>Rp. {{ number_format(floor($a->gaji)) }}</td>
+            <td>Rp. {{ number_format(floor($a->gaji / $a->hari_kerja)) }}</td>
             <td align="center">
                 <button type="button" onclick="deleteGaji('{{$a->id_gaji}}')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
             </td>

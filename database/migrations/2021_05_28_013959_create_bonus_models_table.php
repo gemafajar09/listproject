@@ -14,10 +14,14 @@ class CreateBonusModelsTable extends Migration
     public function up()
     {
         Schema::create('tb_bonus', function (Blueprint $table) {
-            $table->id('id_bonus');
-            $table->tinyInteger('id_user');
+            $table->id('bonus_id');
             $table->integer('id_project');
-            $table->integer('bonus');
+            $table->integer('bonus_hari');
+            $table->integer('bonus_harga_project');
+            $table->integer('bonus_harga_operasional');
+            $table->integer('bonus_harga_bersih');
+            $table->integer('bonus_persen');
+            $table->integer('bonus_harga');
         });
     }
 

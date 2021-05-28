@@ -23,6 +23,7 @@ class CreateProjectModelsTable extends Migration
             $table->string('no_hp_client');
             $table->string('harga');
             $table->integer('status');
+            $table->integer('status_bonus')->default('0');
         });
     }
 
